@@ -35,7 +35,7 @@ dotenv.config()
 //cors options
 
 const corsOptions ={
-   origin:"https://nizam-travel-booking.vercel.app/", 
+   origin:"https://nizam-travel-booking.vercel.app", 
    credentials:true,            //access-control-allow-credentials:true
    // optionSuccessStatus:200,
    // methods:["GET","POST"]
