@@ -1,0 +1,3 @@
+username:tourapp
+password:tourapp123
+mongodb+srv://tourapp:tourapp123@cluster0.regfrre.mongodb.net/

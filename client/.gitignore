@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+node_modules/
+=======
+frontend/node_modules
+backend/node_modules
+>>>>>>> 3fd69eceb87c7a3d14bdc620c24d949b367bf0e4
