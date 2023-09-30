@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { Container, Button, Row } from 'reactstrap'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
@@ -19,6 +19,24 @@ const Header = () => {
       display:'About'
     },
   ]
+  const headerRef = useRef(null)
+  const menuRef = useRef(null)
+  const stickyHeaderFunc = () => {
+    window.addEventListener("scroll", () => {
+      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80)
+      {
+        headerRef.current.classList.add("sticky__header")  
+      }
+      else {
+        headerRef.current.classList.remove("sticky__header")
+      }
+    })
+  }
+  useEffect(() => {
+    stickyHeaderFunc()
+    return window.removeEventListener("scroll",stickyHeaderFunc)
+  })
+  const toggleMenu=()=>menuRef.current.classList.toggle("show__menu")
   const navigate=useNavigate()
   const { dispatch, user } = useContext(AuthContext)
   const logout = () => {
@@ -29,17 +47,19 @@ const Header = () => {
   return (
     <div>
       <Container>
-        <Row>
+        <header className='header' ref={headerRef}>
+           <Row>
           <div className="nav__link d-flex align-items-center justify-content-between p-3">
             <div className="logo">
-              <img src={logo} alt="" />
+              <Link to={'/'}><img src={logo} alt="" /></Link>
+              
             </div>
-            <div className="navigation">
+            <div className="navigation" ref={menuRef} onClick={toggleMenu}>
               <ul className="menu d-flex align-items-center gap-5">
                 {
                   navLink.map((item,index) => (
                     <li key={index} className="nav__item">
-                     <NavLink to={item.path} className={navclass=>navclass.isActive ? 'active__link' : ''}>{item.display}</NavLink></li>
+                     <NavLink to={item.path} className={navClass=>navClass.isActive ? 'active__link' : ''}>{item.display}</NavLink></li>
                   ))
                 }
               </ul>
@@ -59,12 +79,14 @@ const Header = () => {
                     </>
               }
               </div>
-              <span className='mobile__menu'>
-                <i class="ri-bar-chart-horizontal-fill"></i>
+             <span className='mobile__menu' onClick={toggleMenu}>
+                <i class="ri-menu-line"></i>
               </span>
             </div>
           </div>
         </Row>
+        </header>
+       
       </Container>
     </div>
   )
