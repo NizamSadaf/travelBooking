@@ -6,7 +6,7 @@ const Newsletter = () => {
   return (
     <section className="newsletter">
          <Container>
-        <Row>
+            <Row>
               <Col lg='6'>
                   <div className="newsletter__content">
                       <h2>Subscribe to get useful travelling information</h2>
