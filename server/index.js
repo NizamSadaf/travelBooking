@@ -28,9 +28,10 @@ dotenv.config()
 
 //cors options
 
-const corsOptions = {
-    origin: ["https://nizam-travel-booking.vercel.app"],
-    credentials:true
+const corsOptions ={
+   origin:'*', 
+   credentials:true,            //access-control-allow-credentials:true
+   optionSuccessStatus:200,
 }
 
 
@@ -45,10 +46,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,
     .catch(err => console.log(err))
     
 // Request parser
-app.use(cors({
-    origin: ["https://nizam-travel-booking.vercel.app"],
-    credentials:true
-}));
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
