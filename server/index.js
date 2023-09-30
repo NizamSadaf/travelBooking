@@ -45,7 +45,10 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,
     .catch(err => console.log(err))
     
 // Request parser
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: ["https://nizam-travel-booking.vercel.app"],
+    credentials:true
+}));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
