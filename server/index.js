@@ -58,9 +58,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
 //Set Routes
-// app.use("/", (req,res) => {
-//     res.send("hello")
-// })
+app.use("/", (req,res) => {
+     res.send("hello")
+ })
 app.use("/api/v1/tours", tourRoute)
 app.use("/api/v1/users", userRoute)
 app.use("/api/v1/auth", authRoute)
