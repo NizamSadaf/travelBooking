@@ -25,21 +25,21 @@ import bookingRoute from "./router/bookingRoute.js";
 const app = express()
 
 dotenv.config() 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, authentication');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, authentication');
+//   res.setHeader('Access-Control-Allow-Credentials', 'true');
+//   next();
+// });
 //cors options
 
-// const corsOptions ={
-//    origin:["https://travel-booking-eight.vercel.app"], 
-//    credentials:true,            //access-control-allow-credentials:true
-//    optionSuccessStatus:200,
-//    methods:["GET","POST"]
-// }
+const corsOptions ={
+   origin:"https://travel-booking-eight.vercel.app", 
+   // credentials:true,            //access-control-allow-credentials:true
+   // optionSuccessStatus:200,
+   // methods:["GET","POST"]
+}
 
 
 //Mongoose Connection
@@ -54,7 +54,7 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,
     
 // Request parser
 
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
