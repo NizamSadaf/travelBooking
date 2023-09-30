@@ -19,61 +19,55 @@ const Header = () => {
       display:'About'
     },
   ]
-  const headerRef = useRef(null)
-  const menuRef = useRef(null)
-  const stickyHeaderFunc = () => {
-    window.addEventListener("scroll", () => {
-      if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80)
-      {
-        headerRef.current.classList.add("sticky__header")  
-      }
-      else {
-        headerRef.current.classList.remove("sticky__header")
-      }
-    })
+  const navigate=useNavigate()
+  const { dispatch, user } = useContext(AuthContext)
+  const logout = () => {
+    dispatch({ type: 'LOGOUT' })
+    localStorage.clear('user') 
+    navigate('/')
   }
-  useEffect(() => {
-    stickyHeaderFunc()
-    return window.removeEventListener("scroll",stickyHeaderFunc)
-  })
-  const toggleMenu=()=>menuRef.current.classList.toggle("show__menu")
   return (
-    
-    <Container>
-      <header className='header' ref={headerRef}>
+    <div>
+      <Container>
         <Row>
-          <div className="nav__link d-flex align-items-center justify-content-between">
+          <div className="nav__link d-flex align-items-center justify-content-between p-3">
             <div className="logo">
-              <Link to={'/'}><img src={logo} alt="" /></Link>
-              
+              <img src={logo} alt="" />
             </div>
-            {/* ========Menu Start======== */}
-            <div className="navigation" ref={menuRef} onClick={toggleMenu}>
+            <div className="navigation">
               <ul className="menu d-flex align-items-center gap-5">
                 {
                   navLink.map((item,index) => (
                     <li key={index} className="nav__item">
-                     <NavLink to={item.path} className={navClass=>navClass.isActive ? 'active__link' : ''}>{item.display}</NavLink></li>
+                     <NavLink to={item.path} className={navclass=>navclass.isActive ? 'active__link' : ''}>{item.display}</NavLink></li>
                   ))
                 }
               </ul>
             </div>
             <div className="nav__right d-flex align-items-center gap-4">
               <div className="nav__btns d-flex align-items-center gap-4">
-                <Button className='btn secondary__btn'><Link to={'/login'}>Login</Link></Button>
-                <Button className='btn primary__btn'><Link to={'/register'}>Register</Link></Button>
+              {
+                  user ? 
+                    <>
+                      <h5 className='mb-0'>{ user?.user?.username }</h5>
+                      <Button className='btn btn-dark' onClick={logout}>Logout</Button>
+                    </>
+                    :
+                    <>
+                      <Button className='btn secondary__btn'><Link to={'/login'}>Login</Link></Button>
+                      <Button className='btn primary__btn'><Link to={'/register'}>Register</Link></Button>
+                    </>
+              }
               </div>
-              <span className='mobile__menu' onClick={toggleMenu}>
-                <i class="ri-menu-line"></i>
+              <span className='mobile__menu'>
+                <i class="ri-bar-chart-horizontal-fill"></i>
               </span>
             </div>
           </div>
-      </Row>
-      </header>
+        </Row>
       </Container>
-    
+    </div>
   )
 }
-
 
 export default Header
