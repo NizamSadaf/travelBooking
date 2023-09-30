@@ -29,7 +29,7 @@ dotenv.config()
 //cors options
 
 const corsOptions ={
-   origin:["https://travel-booking-eight.vercel.app/api/v1/tours"], 
+   origin:["https://travel-booking-eight.vercel.app"], 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
    methods:["GET"]
