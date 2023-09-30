@@ -47,7 +47,13 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,
     .catch(err => console.log(err))
     
 // Request parser
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://nizam-travel-booking.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  next();
+});
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
