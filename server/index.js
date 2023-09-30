@@ -29,7 +29,7 @@ dotenv.config()
 //cors options
 
 const corsOptions ={
-   origin:["https://travel-booking-eight.vercel.app/"], 
+   origin:["https://travel-booking-eight.vercel.app"], 
    credentials:true,            //access-control-allow-credentials:true
    optionSuccessStatus:200,
    methods:["GET","POST"]
@@ -48,14 +48,6 @@ mongoose.connect(process.env.MONGO_CONNECTION_STRING,
     
 // Request parser
 //app.use(cors(corsOptions));
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://nizam-travel-booking.vercel.app');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, authentication');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  next();
-});
-
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
@@ -66,12 +58,18 @@ app.use(express.urlencoded({ extended: true }))
 
 //parse cookies
 app.use(cookieParser(process.env.COOKIE_SECRET))
-
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', 'https://nizam-travel-booking.vercel.app');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, authentication');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
+  next();
+});
 //Set Routes
 app.use("/", (req,res) => {
      res.json("hello")
  })
-app.use("/api/v1/tours", tourRoute)
+app.use("/tours", tourRoute)
 app.use("/api/v1/users", userRoute)
 app.use("/api/v1/auth", authRoute)
 app.use("/api/v1/review", reviewRoute)
