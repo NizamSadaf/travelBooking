@@ -12,11 +12,12 @@ export default function useFetch( url ) {
                     headers: {
                         Authentication: `Bearer ${token}` 
                     },
-                     mode: 'no-cors'
                 })
                 const result =await res.json()
                 setData(result.data)
                 setLoading(false)
+                console.log(url)
+                console.log(data)
             } catch (error) {
                 setLoading(false)
                 setError("Can't fetch")
