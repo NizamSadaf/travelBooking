@@ -11,7 +11,8 @@ export default function useFetch( url ) {
                 const res = await fetch(url, {
                     headers: {
                         Authentication: `Bearer ${token}` 
-                    }
+                    },
+                     mode: 'no-cors'
                 })
                 const result =await res.json()
                 setData(result.data)
