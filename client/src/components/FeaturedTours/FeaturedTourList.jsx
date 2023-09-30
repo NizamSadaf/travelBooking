@@ -6,7 +6,7 @@ import { Col } from 'reactstrap'
 import  useFetch  from '../Hooks/useFetch'
 import {BASE_URL} from '../../utils/baseUrl'
 const FeaturedTourList = () => {
-    const { data: tourData, loading, error } = useFetch(`${BASE_URL}/api/v1/tours`)
+    const { data: tourData, loading, error } = useFetch(`${BASE_URL}/tours`)
 return (
       <>
           {
